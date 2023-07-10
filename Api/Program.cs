@@ -19,6 +19,10 @@ builder.Services.AddTransient<IBookRepository,LibraryDatabaseContext>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddTransient<IAuthorRepository, LibraryDatabaseContext>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
+builder.Services.AddTransient<IBorrowingRepository, LibraryDatabaseContext>();
+builder.Services.AddScoped<IBorrowingService, BorrowingService>();
+
+
 //builder.Services.AddTransient<IBookRepository, LibraryDatabaseContext>();
 //builder.Services.AddScoped<IBookService, BookService>();
 var app = builder.Build();

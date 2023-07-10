@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoreLayer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace CoreLayer.ServicesInterfaces
 {
-    internal interface IBorrowingService
+    public interface IBorrowingService
     {
+        public void BorrowBook(Borrowing borrow);
+        public void ReturnBook(Borrowing bookreturn);
+        public string ListOverDate();
     }
 }

@@ -13,7 +13,7 @@ using System.Xml.Linq;
 
 namespace CoreLayer.Infrastructure
 {
-    public class LibraryDatabaseContext : IdentityDbContext<UserEntity, UserRole, int>, IBookRepository, IAuthorRepository
+    public class LibraryDatabaseContext : IdentityDbContext<UserEntity, UserRole, int>, IBookRepository, IAuthorRepository,IBorrowingRepository
     {
         public LibraryDatabaseContext(DbContextOptions<LibraryDatabaseContext> options) : base(options)
         {
@@ -79,6 +79,28 @@ namespace CoreLayer.Infrastructure
                 res.Concat(author.Books.ToList());
             }
             return res;
+        }
+
+        public void BorrowBook(Borrowing borrow)
+        {
+            borrow.BorrowingDate=DateOnly.FromDateTime(DateTime.Now);
+            borrow.ReturnDate = borrow.BorrowingDate.AddMonths(4);
+            this.Borrowings.Add(borrow);
+            this.SaveChanges();
+        }
+
+        public void ReturnBook(Borrowing bookreturn)
+        {
+            var toreturn =this.Borrowings.Find(bookreturn.BorrowingId);
+            toreturn.IsReturned= true;
+            this.Borrowings.Update(toreturn);
+            this.SaveChanges();
+
+        }
+
+        public List<Borrowing> ListOverDate()
+        {
+            return this.Borrowings.Where(x => x.ReturnDate < DateOnly.FromDateTime(DateTime.Now)).ToList();
         }
     }
 }

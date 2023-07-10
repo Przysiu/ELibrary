@@ -11,6 +11,7 @@ namespace CoreLayer.Models
         public int BorrowingId { get; set; }
         public DateOnly BorrowingDate { get; set; }
         public DateOnly ReturnDate { get; set; }
+        public bool IsReturned { get; set; } = false;
 
         //user
         //book
