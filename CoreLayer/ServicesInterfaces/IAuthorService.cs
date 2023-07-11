@@ -13,5 +13,6 @@ namespace CoreLayer.ServicesInterfaces
         public void EditAuthor(Author book);
         public string ListAuthors();
         public string ListAuthorBooks(string authorNameSurname );
+        public void AddBookToAuthor(int bookid, int authorid);
     }
 }

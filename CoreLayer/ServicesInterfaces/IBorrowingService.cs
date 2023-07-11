@@ -9,7 +9,7 @@ namespace CoreLayer.ServicesInterfaces
 {
     public interface IBorrowingService
     {
-        public void BorrowBook(Borrowing borrow);
+        public void BorrowBook(int bookid);
         public void ReturnBook(Borrowing bookreturn);
         public string ListOverDate();
     }

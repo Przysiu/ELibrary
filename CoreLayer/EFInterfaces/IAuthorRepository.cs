@@ -14,6 +14,7 @@ namespace CoreLayer.EFInterfaces
 
         public List<Author> GetAuthorList();
         public List<Book> ListAuthorBooks(string name, string surname);
+        public void AddBookToAuthor(int bookid,int authorid);
 
     }
 }

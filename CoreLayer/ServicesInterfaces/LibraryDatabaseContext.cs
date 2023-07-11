@@ -23,7 +23,7 @@ namespace CoreLayer.Infrastructure
         {
             base.OnModelCreating(builder);
             builder.Entity<Author>().HasMany(author => author.Books).WithMany(book => book.Authors);
-
+            builder.Entity<Borrowing>().HasOne(book => book.Book).WithMany(x => x.borrowings);
         }
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Book> Books { get; set; }
@@ -31,8 +31,8 @@ namespace CoreLayer.Infrastructure
 
         public void AddBook(Book book)
         {
-            
-            this.Books.Add(book);
+           // Console.WriteLine(book.Authors[0].AuthorId);
+            this.Books.Add(book);          
             this.SaveChanges();
         }
 
@@ -49,6 +49,7 @@ namespace CoreLayer.Infrastructure
 
         public void RemoveBook(int bookid)
         {
+            
             this.Books.Remove(this.Books.Find(bookid));
             this.SaveChanges();
         }
@@ -81,10 +82,12 @@ namespace CoreLayer.Infrastructure
             return res;
         }
 
-        public void BorrowBook(Borrowing borrow)
+        public void BorrowBook(int bookid)
         {
-            borrow.BorrowingDate=DateOnly.FromDateTime(DateTime.Now);
+            Borrowing borrow= new Borrowing();
+            borrow.BorrowingDate=DateTime.Now;
             borrow.ReturnDate = borrow.BorrowingDate.AddMonths(4);
+            borrow.Book= this.Books.Find( bookid);
             this.Borrowings.Add(borrow);
             this.SaveChanges();
         }
@@ -100,7 +103,21 @@ namespace CoreLayer.Infrastructure
 
         public List<Borrowing> ListOverDate()
         {
-            return this.Borrowings.Where(x => x.ReturnDate < DateOnly.FromDateTime(DateTime.Now)).ToList();
+           return this.Borrowings.Where(x => x.ReturnDate < DateTime.Now).ToList();
+            
+        }
+
+        public void AddBookToAuthor(int bookid, int authorid)
+        {
+            var book = this.Books.Find(bookid);
+            var author = this.Authors.Find(authorid);
+            if (!author.Books.Contains(book))
+            {
+                author.Books.Add(book);
+                this.Update(author);
+                this.SaveChanges();
+            }
+            
         }
     }
 }

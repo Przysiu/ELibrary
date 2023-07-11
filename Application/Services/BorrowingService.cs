@@ -19,9 +19,9 @@ namespace Application.Services
         }
 
 
-        public void BorrowBook(Borrowing borrow)
+        public void BorrowBook(int bookid)
         {
-            borrowingRepository.BorrowBook(borrow);
+            borrowingRepository.BorrowBook(bookid);
         }
 
         public string ListOverDate()

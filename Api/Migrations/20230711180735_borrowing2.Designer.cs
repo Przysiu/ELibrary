@@ -3,6 +3,7 @@ using System;
 using CoreLayer.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,12 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Migrations
 {
     [DbContext(typeof(LibraryDatabaseContext))]
-    partial class LibraryDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230711180735_borrowing2")]
+    partial class borrowing2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.9");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.8");
 
             modelBuilder.Entity("AuthorBook", b =>
                 {
@@ -86,17 +89,14 @@ namespace Api.Migrations
                     b.Property<int>("Bookid")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("BorrowingDate")
+                    b.Property<DateOnly>("BorrowingDate")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsReturned")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("ReturnDate")
+                    b.Property<DateOnly>("ReturnDate")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("BorrowingId");
 

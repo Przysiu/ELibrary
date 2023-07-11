@@ -40,5 +40,9 @@ namespace Application.Services
         {
             return JsonSerializer.Serialize(authorRepository.GetAuthorList());
         }
+        public void AddBookToAuthor(int bookid, int authorid)
+        {
+            this.AddBookToAuthor(bookid, authorid);
+        }
     }
 }

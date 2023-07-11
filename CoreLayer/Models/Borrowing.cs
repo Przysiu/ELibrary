@@ -9,12 +9,14 @@ namespace CoreLayer.Models
     public class Borrowing
     {
         public int BorrowingId { get; set; }
-        public DateOnly BorrowingDate { get; set; }
-        public DateOnly ReturnDate { get; set; }
+        public DateTime BorrowingDate { get; set; }
+        public DateTime ReturnDate { get; set; }
         public bool IsReturned { get; set; } = false;
-
+        public int Bookid { get; set; }
+        public Book Book { get; set; }
+        public int UserId { get; set; }
         //user
         //book
-        
+
     }
 }

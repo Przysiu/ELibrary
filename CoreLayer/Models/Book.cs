@@ -16,6 +16,7 @@ namespace CoreLayer.Models
         public string Publisher { get; set; }
         //authors
         public List<Author> Authors { get; set; } = new();
+        public List<Borrowing> borrowings { get; set; } = new();
     }
     public enum BookGenres
     {
