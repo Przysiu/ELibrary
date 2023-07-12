@@ -12,7 +12,7 @@ namespace CoreLayer.Models
         public string Title { get; set; }
         public string Description { get; set; }
        
-        public int PublicationYear { get; set; }
+        public DateTime PublicationYear { get; set; }
         public string Publisher { get; set; }
         //authors
         public List<Author> Authors { get; set; } = new();

@@ -13,7 +13,7 @@ using System.Xml.Linq;
 
 namespace CoreLayer.Infrastructure
 {
-    public class LibraryDatabaseContext : IdentityDbContext<UserEntity, UserRole, int>, IBookRepository, IAuthorRepository,IBorrowingRepository
+    public class LibraryDatabaseContext : IdentityDbContext<UserEntity, UserRole, int>, IBookRepository, IAuthorRepository,IBorrowingRepository,ILibrarianRepository
     {
         public LibraryDatabaseContext(DbContextOptions<LibraryDatabaseContext> options) : base(options)
         {
@@ -28,6 +28,7 @@ namespace CoreLayer.Infrastructure
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<Borrowing> Borrowings { get; set; }
+        public virtual DbSet<Librarian> Librarians { get; set; }
 
         public void AddBook(Book book)
         {
@@ -118,6 +119,34 @@ namespace CoreLayer.Infrastructure
                 this.SaveChanges();
             }
             
+        }
+
+        public void AddLibrarian(Librarian librarian)
+        {
+            this.Librarians.Add(librarian);
+            this.SaveChanges();
+        }
+
+        public void RemoveLibrarian(int librarianId)
+        {
+            this.Librarians.Remove(this.Librarians.Find(librarianId));
+            this.SaveChanges();
+        }
+
+        public Librarian GetLibrarianDetails(int librarianid)
+        {
+            return this.Librarians.Find(this.Librarians.Find(librarianid));
+        }
+
+        public void UpdateLibrarian(int id, Librarian librarian)
+        {
+            Console.WriteLine(id);
+            Console.WriteLine(librarian.Name);
+            var librariantoupdate = this.Librarians.Find(id);
+            librariantoupdate = librarian;
+            this.Librarians.Update(librariantoupdate);
+            this.SaveChanges();
+
         }
     }
 }

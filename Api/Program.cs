@@ -23,7 +23,8 @@ builder.Services.AddTransient<IAuthorRepository, LibraryDatabaseContext>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddTransient<IBorrowingRepository, LibraryDatabaseContext>();
 builder.Services.AddScoped<IBorrowingService, BorrowingService>();
-
+builder.Services.AddTransient<ILibrarianRepository, LibraryDatabaseContext>();
+builder.Services.AddScoped<ILibrarianService, LibrarianService>();
 builder.Services.AddSingleton<JwtSettings>();
 builder.Services.ConfigureIdentity();
 builder.Services.ConfigureJWT(new JwtSettings(builder.Configuration));
